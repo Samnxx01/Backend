@@ -60,5 +60,15 @@ export async function existeIdCategoria(id) {
     // Si no se encuentra el usuario, simplemente retornamos false en lugar de lanzar un error
     return !!existeUsuario;
 }
+export async function coleccionesPermitidas(coleccion = '', colecciones = []) {
+    
+    const incluida = colecciones.includes(coleccion); // Corregir "incluides" a "includes"
+    if (!incluida) {
+        throw new Error(`La colección ${coleccion} no es permitida. Colecciones permitidas: ${colecciones}`)
+    }
+    return true;
+    // Si no se encuentra la colección, simplemente retornamos false en lugar de lanzar un error
+}
+
 
 

@@ -13,9 +13,16 @@ const ModuloSchema = new Schema({
         type: Date,
         default: Date.now 
     },
-    archivo: {
+    xlsx: {
         type: String,
     },
+    pdf: {
+        type: String,
+    },
+    docx: {
+        type: String,
+    },
+
     estado: {
         type: Boolean,
         default: true
@@ -33,9 +40,9 @@ const ModuloSchema = new Schema({
 
 
 ModuloSchema.methods.toJSON = function () {
-    const { __v, _id, ...Modulo } = this.toObject();
-    Modulo.iud = _id;
-    return Modulo;
+    const { __v, _id, ...modulo } = this.toObject();
+    modulo.iud = _id;
+    return modulo;
   };
   
-export default mongoose.model('Modulo', ModuloSchema);
+export default mongoose.model('modulo', ModuloSchema);

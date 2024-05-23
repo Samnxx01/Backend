@@ -16,7 +16,9 @@ var router = express.Router()
 
 //definicion de rutas 
 
+router.get('/listararchivos',[
 
+], moduloArchivo.listarIntranet)
 
 
 

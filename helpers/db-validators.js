@@ -28,6 +28,7 @@ export async function emailExiste(correo = '') {
         throw new Error(`El correo  ya existe`);
     }
 }
+
 export async function nombreArchivoExiste(nombre_archivo = '') {
     const existeArchivi = await archivo.findOne({ nombre_archivo });
     if (existeArchivi) {

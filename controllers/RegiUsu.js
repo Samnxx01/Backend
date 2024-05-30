@@ -74,11 +74,11 @@ var registrousu = {
                 error: `el rol debe ser usuario`
             });
         }
+        
 
             // Crear una instancia de Regis (si es una clase o función)
             const registro = new Regis({
                 nickname: params.nickname,
-                correo: params.correo,
                 password: params.password,
                 rol: params.rol,
 

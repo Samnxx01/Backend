@@ -2,7 +2,7 @@ import express from 'express';
 import{ check } from'express-validator';
 import loginController from '../controllers/loginUsu.js'
 import validarCampos from '../middlewares/validar.campos.js';
-import {esRoleValido} from '../helpers/db-validators.js';
+import {esRoleValido, nombreExiste} from '../helpers/db-validators.js';
 import {esAdminRole} from '../middlewares/validar-roles.js';
 import {existeIdUsuario} from '../helpers/db-validators.js';
 
@@ -17,14 +17,14 @@ router.get('/login/listar', loginController.listar )
 
 router.post('/login/admin',[
     
-    check('correo','el correo es obligatorio').isEmail(),
+    check('nickname','el usuario es obligatorio').isEmpty,
     check('password','La contraseña es obligatoria').not().isEmpty(),
     validarCampos
 ], loginController.guardarAdmin) 
 
 router.post('/login/usuario',[
     
-    check('correo','el correo es obligatorio').isEmail(),
+    check('nickname','el usuario es obligatorio').not().isEmpty(),
     check('password','La contraseña es obligatoria').not().isEmpty(),
     validarCampos
 ], loginController.guardar)

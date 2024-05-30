@@ -29,9 +29,7 @@ router.post('/guardarRegistro',[
     //validacion de campos
     check('nickname', 'El nickname es obligatorio').not().isEmpty(),
     check('nickname', ).custom( nombreExiste),
-    check('correo', 'correo no es valido').isEmail(),
-    check('correo', ).custom( emailExiste),
-    check('password', 'contraseña no es valido').isLength({ min: 6}),
+    check('password', 'contraseña no es valido').isLength({ min: 4}),
     //check('rol', 'No es un rol valido').isIn(['ADMIN_ROLE', 'USER_ROLE']),
     check('rol', ).custom( esRoleValido),
     validarCampos,

@@ -19,12 +19,12 @@ var login = {
 
     guardar: async (req, res = response) => {
 
-        const {correo , password} = req.body
+        const {nickname , password} = req.body
 
         try {
             
             //verificar si el email existe
-            const verificar = await registros.findOne({correo});
+            const verificar = await registros.findOne({nickname});
         
             if(verificar != null){
 
@@ -35,7 +35,7 @@ var login = {
                         msg: 'estado inactivo'
                     })
                 }
-                
+                console.log(verificar)
                 //verficar la contraseña
             
                 const validarcontra = bcryptjs.compareSync(password, verificar.password);
@@ -73,12 +73,12 @@ var login = {
 },
     guardarAdmin: async (req, res = response) => {
 
-        const {correo , password} = req.body
+        const {nickname , password} = req.body
 
         try {
             
             //verificar si el email existe
-            const auten = await registros.findOne({correo});
+            const auten = await registros.findOne({nickname});
         
             if(auten != null){
 

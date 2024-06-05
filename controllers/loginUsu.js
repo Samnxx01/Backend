@@ -71,6 +71,7 @@ var login = {
             
         }       
 },
+
     guardarAdmin: async (req, res = response) => {
 
         const {nickname , password} = req.body
@@ -78,23 +79,23 @@ var login = {
         try {
             
             //verificar si el email existe
-            const auten = await registros.findOne({nickname});
+            const verificar = await registros.findOne({nickname});
         
-            if(auten != null){
+            if(verificar != null){
 
                 //SI el usuario esta activo
-
-                if ( !auten.estado ){
+    
+                if ( !verificar.estado ){
                     return res.status(400).json({
                         msg: 'estado inactivo'
                     })
                 }
-                
+                console.log(verificar)
                 //verficar la contraseña
             
-                const validarcontra = bcryptjs.compareSync(password, auten.password);
+                const validarcontra = bcryptjs.compareSync(password, verificar.password);
                 if (!validarcontra) {
-
+    
                     return res.status(400).json({
                         msg:'Escribio mal la password'
                     }) 
@@ -103,51 +104,27 @@ var login = {
                 msg: 'no se encontro un registro'
             })
 
-            if (auten.rol !== 'ADMINISTRADOR_ROLE') {
-                return res.status(400).json({
-                    msg: 'No tienes permisos de administrador'
-                });
-            }
-
-
-
-            auten.tiempoSesion = new Date();
-            await auten.save();
-
-            /*const tiempoActual = new Date();
-            const tiempoSesion = tiempoActual - auten.tiempoSesion;
-
-            if (tiempoSesion < tiempoMinimoSesion) {
-                // Si la sesión ha estado abierta durante menos tiempo del mínimo requerido, puedes responder en consecuencia.
-                return res.status(401).json({
-                  msg: `La sesión debe mantenerse abierta al menos ${tiempoMinimoSesion / 60000} minutos.`
-                });
-              }*/
-              
+            // Actualizar el campo tiemposesion con la fecha actual
+                verificar.tiempoSesion = new Date();
+                await verificar.save();
 
             //generar el JWT
-            const token = await generarJWT(auten.id)
+            const token = await generarJWT(verificar.id)
 
             res.status(200).json({
-                auten,
-                token
-                
+                verificar,
+                token,
+   
 
             })
-            
             
         } catch (error) {
-
-            
             console.log(error)
-            res.status(500).json({
-                msg: 'Error en el servidor'
+             res.status(500).json({
+                msg: 'hable con el administrador'
             })
             
-        }
-
-
-        
+        }  
     },
 
 

@@ -1,4 +1,5 @@
 import { response } from "express";
+import regiUsu from "../models/regiUsu.js";
 
 
 
@@ -11,7 +12,7 @@ const esAdminRole = async (req, res = response, next) => {
 
     const {rol, nickname} = req.registrosUsu 
     
-    if (rol !== 'ADMINISTRADOR_ROLE') {
+    if (rol !== 'ADMINISTRADOR') {
         return res.status(401).json({
             msg:`${nickname} no es administrador - no puede hacer modificaciones`
         })
@@ -20,8 +21,8 @@ const esAdminRole = async (req, res = response, next) => {
     next();
 }
 
-async function esTenerRoles(correo = '') {
-    const existeEmail = await Regis.findOne({ correo });
+async function esTenerRoles(nickname = '') {
+    const existeEmail = await regiUsu.findOne({ nickname });
     if (existeEmail) {
         throw new Error(`El correo ya existe`);
     }

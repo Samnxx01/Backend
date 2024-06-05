@@ -1,9 +1,23 @@
 import { response } from 'express';
 import moment from 'moment-timezone'; // Importa moment-timezone
 import modulo from '../models/modulo.js';
+import calidad from '../models/calidad.js';
+import financiera from '../models/financiera.js';
+import juridica from '../models/juridica.js';
+import tecnologia from '../models/tecnologia.js';
+import promocion from '../models/juridica.js';
+import asistencial from '../models/asistencia.js';
+import diagnostica from '../models/diagnostico.js';
+import riesgos from '../models/riesgo.js';
+import partos from '../models/partos.js';
+import urgencias from '../models/urgencias.js';
+import talento from '../models/talento.js';
+import mercadeo from '../models/mercadeo.js';
+import administrativa from '../models/administrativa.js';
+import planeacion from '../models/planeacion.js';
 import path from 'path'; // Importa el módulo path
 import subirArchivos from '../helpers/subir-archivos.js';
-import registUrosImg from '../models/regiUsu.js'
+import registUrosImg from '../models/regiUsu.js';
 import fs from 'fs'
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -125,6 +139,138 @@ var intra = {
       }
 
       const nuevoDocumento = new modulo(data);
+      const guardadoDocumento = await nuevoDocumento.save();
+
+      res.json({ guardadoDocumento });
+
+    } catch (error) {
+      console.error('Error al guardar el archivo de extension png, jpg:', error);
+      res.status(500).json({ error: 'Error al guardar el archivo' });
+    }
+  },
+    guadarAdministra: async (req, res = response) => {
+
+
+    const { estado, registUros, ...body } = req.body;
+
+    const fechaActual = new Date();
+
+    const data = {
+      ...body,
+      nombre_archivo: body.nombre_archivo.toUpperCase(),
+      descripcion: body.descripcion.toUpperCase(),
+      fecha_carga: fechaActual,
+      regisUsu: req.uid,
+    };
+
+    if (!req.files || Object.keys(req.files).length === 0 || !req.files.imagen) {
+      return res.status(400).send('No hay archivo para subir');
+    }
+
+    try {
+      const archivoSubido = await subirArchivos(req.files, undefined, 'calidad');
+      const extension = path.extname(archivoSubido).toLowerCase();
+
+      // Asignar el archivo a la propiedad correspondiente según la extensión
+      if (extension === '.pdf') {
+        data.pdf = archivoSubido;
+      } else if (extension === '.xlsx') {
+        data.xlsx = archivoSubido;
+      } else if (extension === '.docx') {
+        data.docx = archivoSubido;
+      } else {
+        return res.status(400).json({ error: 'Formato de archivo no soportado' });
+      }
+
+      const nuevoDocumento = new administrativa(data);
+      const guardadoDocumento = await nuevoDocumento.save();
+
+      res.json({ guardadoDocumento });
+
+    } catch (error) {
+      console.error('Error al guardar el archivo de extension png, jpg:', error);
+      res.status(500).json({ error: 'Error al guardar el archivo' });
+    }
+  },
+  guadarCalidad: async (req, res = response) => {
+
+
+    const { estado, registUros, ...body } = req.body;
+
+    const fechaActual = new Date();
+
+    const data = {
+      ...body,
+      nombre_archivo: body.nombre_archivo.toUpperCase(),
+      descripcion: body.descripcion.toUpperCase(),
+      fecha_carga: fechaActual,
+      regisUsu: req.uid,
+    };
+
+    if (!req.files || Object.keys(req.files).length === 0 || !req.files.imagen) {
+      return res.status(400).send('No hay archivo para subir');
+    }
+
+    try {
+      const archivoSubido = await subirArchivos(req.files, undefined, 'calidad');
+      const extension = path.extname(archivoSubido).toLowerCase();
+
+      // Asignar el archivo a la propiedad correspondiente según la extensión
+      if (extension === '.pdf') {
+        data.pdf = archivoSubido;
+      } else if (extension === '.xlsx') {
+        data.xlsx = archivoSubido;
+      } else if (extension === '.docx') {
+        data.docx = archivoSubido;
+      } else {
+        return res.status(400).json({ error: 'Formato de archivo no soportado' });
+      }
+
+      const nuevoDocumento = new calidad(data);
+      const guardadoDocumento = await nuevoDocumento.save();
+
+      res.json({ guardadoDocumento });
+
+    } catch (error) {
+      console.error('Error al guardar el archivo de extension png, jpg:', error);
+      res.status(500).json({ error: 'Error al guardar el archivo' });
+    }
+  },
+  guadarFinanciera: async (req, res = response) => {
+
+
+    const { estado, registUros, ...body } = req.body;
+
+    const fechaActual = new Date();
+
+    const data = {
+      ...body,
+      nombre_archivo: body.nombre_archivo.toUpperCase(),
+      descripcion: body.descripcion.toUpperCase(),
+      fecha_carga: fechaActual,
+      regisUsu: req.uid,
+    };
+
+    if (!req.files || Object.keys(req.files).length === 0 || !req.files.imagen) {
+      return res.status(400).send('No hay archivo para subir');
+    }
+
+    try {
+      const archivoSubido = await subirArchivos(req.files, undefined, 'calidad');
+      const extension = path.extname(archivoSubido).toLowerCase();
+
+      // Asignar el archivo a la propiedad correspondiente según la extensión
+      if (extension === '.pdf') {
+        data.pdf = archivoSubido;
+      } else if (extension === '.xlsx') {
+        data.xlsx = archivoSubido;
+      } else if (extension === '.docx') {
+        data.docx = archivoSubido;
+      } else {
+        return res.status(400).json({ error: 'Formato de archivo no soportado' });
+      }
+
+      const nuevoDocumento = new financiera(data);
       const guardadoDocumento = await nuevoDocumento.save();
 
       res.json({ guardadoDocumento });

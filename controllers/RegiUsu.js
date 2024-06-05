@@ -121,7 +121,7 @@ var registrousu = {
             var params = req.body;
 
 
-            if (params.rol !== "ADMINISTRADOR_ROLE") {
+            if (params.rol !== "ADMINISTRADOR") {
                 return res.status(400).json({
                     error: `el rol debe ser administrador`
                 });

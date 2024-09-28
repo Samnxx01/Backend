@@ -5,16 +5,14 @@ export async function generarJWT(uid = '') {
         const payload = { uid };
 
         jwt.sign(payload, process.env.SECRETKEY, {
-            expiresIn: '4h'
+            expiresIn: '1H' // Expiración de 30 minutos
         }, (err, token) => { 
-
             if (err) {
                 console.log(err);
-                reject(' No se pudo generar el token')
+                reject('No se pudo generar el token');
             } else {
                 resolve(token); // Si no hay error, resolvemos la promesa con el token
             }
-
         });
     });
 }

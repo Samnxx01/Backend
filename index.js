@@ -8,6 +8,7 @@ import bodyParser from 'body-parser'
 import router from './routes/apis.js'
 import login from './routes/auth.js'
 import categorias from './routes/categorias.js'
+import buscador from './routes/buscarArchivos.js'
 import intranet from './routes/intranet-libreria.js'
 import documentos from './routes/documentos-subidos.js'
 import dot from 'dotenv'
@@ -45,6 +46,9 @@ app.use('/api/auth', login)
 app.use('/api/categorias', categorias)
 app.use('/api/documentos', intranet)
 app.use('/api/documentos/archivos', documentos)
+app.use('/api/buscador', buscador)
+
+
 
 
 io.on('connection', (socket)=>{
@@ -59,6 +63,8 @@ io.on('connection', (socket)=>{
         })
     })
 })
+
+
 
 //variables de entorno
 dot.config();

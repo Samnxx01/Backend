@@ -46,10 +46,20 @@ router.post('/guardarRegistro/admin', [
     validarCampos,
 ], registro.guardarAdmin)
 
+router.post('/guardarRegistro/dios', [
+
+    check('nickname', 'El nickname es obligatorio').not().isEmpty(),
+    check('nickname',).custom(nombreExiste),
+    check('password', 'contraseña no es valido').isLength({ min: 4 }),
+    //check('rol', 'No es un rol valido').isIn(['ADMIN_ROLE', 'USER_ROLE']),
+    check('rol',).custom(esRoleValido),
+    validarCampos,
+], registro.guardarDios)
+
 
 
 //listar los registro
-router.get('/listarRegistro', [
+router.get('/registro/listarRegistro', [
     validarJWT, 
     esAdminRole,
     
@@ -77,6 +87,7 @@ router.delete('/eliminar/:id', [
     check('id',).custom(existeIdUsuario),
     validarCampos
 ], registro.eliminar)
+
 
 
 

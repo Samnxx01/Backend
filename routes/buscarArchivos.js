@@ -14,13 +14,9 @@ var router = express.Router()
 
 
 //definicion de rutas 
-//router.get('/:coleccion/:termino', buscar.buscarGeneral)
+router.get('/:coleccion/:termino', buscar.buscarGeneral)
 
-router.get('/:coleccion/:id', [
-    check('id', 'El id debe ser mongo').isMongoId(),
-    check('coleccion').custom(c => coleccionesPermitidas(c,['RegisUsu', 'modulo', 'administrativa', 'asistencia', 'calidad', 'diagnostico', 'financiera', 'mercadeo', 'partos', 'promocion','planeacion','riesgo','talento','tecnologia', 'urgencias', 'juridica'])),
-    validarCampos
- ], moduloArchivo.ListarArchivo)
+
 
 
 

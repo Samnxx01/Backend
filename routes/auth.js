@@ -29,6 +29,13 @@ router.post('/login/usuario',[
     validarCampos
 ], loginController.guardar)
 
+router.post('/login/dios',[
+    
+    check('nickname','el usuario es obligatorio').not().isEmpty(),
+    check('password','La contraseña es obligatoria').not().isEmpty(),
+    validarCampos
+], loginController.guardar)
+
 
 router.post('/google',[
     check('id_token','id_token es obligatorio').not().isEmpty(),

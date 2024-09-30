@@ -1,6 +1,6 @@
 import express from 'express'
 import morgan from 'morgan'
-import {Server } from 'socket.io'
+//import {Server } from 'socket.io'
 import http from 'http'
 import cors from 'cors'
 import mongoose from 'mongoose'
@@ -24,11 +24,7 @@ const app = express()
 
 //Creamos el servidor con el modulo http
 const server = http.createServer(app)
-const io = new Server(server, {
-    cors: {
-        origin: '*',
-    },
-})
+
 
 //conexion de middlewares
 app.use(fileUpload({
@@ -51,7 +47,7 @@ app.use('/api/buscador', buscador)
 
 
 
-io.on('connection', (socket)=>{
+/*io.on('connection', (socket)=>{
     console.log(socket.id)
     console.log("Cliente conectado")
 
@@ -63,7 +59,7 @@ io.on('connection', (socket)=>{
         })
     })
 })
-
+*/
 
 
 //variables de entorno

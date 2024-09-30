@@ -1,6 +1,6 @@
 import express from 'express'
 import morgan from 'morgan'
-import {Server as Socketserver } from 'socket.io'
+import {Server } from 'socket.io'
 import http from 'http'
 import cors from 'cors'
 import mongoose from 'mongoose'
@@ -24,10 +24,10 @@ const app = express()
 
 //Creamos el servidor con el modulo http
 const server = http.createServer(app)
-const io = new Socketserver(server,{
-    cors:{
-        origin: '*'
-    }
+const io = new Server(server, {
+    cors: {
+        origin: '*',
+    },
 })
 
 //conexion de middlewares
